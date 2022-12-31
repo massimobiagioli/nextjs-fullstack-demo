@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { Layout } from '../components/Layout'
-import { AuthInfo, withAuth } from '../libs/infrastructure/cognito/auth'
+import { AuthInfo, withAuth } from '../libs/cognito/auth'
 
 export default function Home(authInfo: AuthInfo) {
   return (
