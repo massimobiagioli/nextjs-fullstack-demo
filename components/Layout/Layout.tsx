@@ -1,5 +1,5 @@
 import { Navbar } from '.'
-import { AuthInfo } from '../../libs/cognito/auth'
+import { AuthInfo } from '../../libs/cognito'
 
 type LayoutProps = {
   children: JSX.Element

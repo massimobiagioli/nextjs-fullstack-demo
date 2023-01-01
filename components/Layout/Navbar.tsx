@@ -1,7 +1,7 @@
 import Link from 'next/link'
 import Router, { useRouter } from 'next/router'
 import { useState } from 'react'
-import { AuthInfo, signOut } from '../../libs/cognito/auth'
+import { AuthInfo, signOut } from '../../libs/cognito'
 
 type NavbarProps = {
   authInfo?: AuthInfo

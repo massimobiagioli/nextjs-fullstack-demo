@@ -1,10 +1,6 @@
 import { withSSRContext, Auth } from 'aws-amplify'
 import { CognitoUser } from '@aws-amplify/auth'
-import {
-  GetServerSideProps,
-  GetServerSidePropsContext,
-  PreviewData,
-} from 'next'
+import { GetServerSidePropsContext, PreviewData } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 
 export type UserInfo = {
@@ -32,6 +28,22 @@ export const signOut = async function (): Promise<void> {
   }
 }
 
+export type GetUserIdFn = (
+  context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+) => Promise<string | undefined>
+
+export const GetUserId = async function (
+  context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+): Promise<string | undefined> {
+  const { Auth } = withSSRContext(context)
+  try {
+    const cognitoUser = await Auth.currentAuthenticatedUser()
+    return cognitoUser.getUsername()
+  } catch (err) {
+    return undefined
+  }
+}
+
 async function getUserInfo(user: CognitoUser): Promise<UserInfo> {
   return new Promise((resolve, reject) => {
     user.getUserAttributes((err, attributes) => {
@@ -48,7 +60,7 @@ async function getUserInfo(user: CognitoUser): Promise<UserInfo> {
 }
 
 export const WithAuth =
-  (data?: GetServerSideProps): GetServerSideProps =>
+  (data?: { [key: string]: any }) =>
   async (context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>) => {
     const { Auth } = withSSRContext(context)
     try {
