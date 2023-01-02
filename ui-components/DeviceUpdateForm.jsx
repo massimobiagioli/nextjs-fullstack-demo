@@ -52,7 +52,7 @@ export default function DeviceUpdateForm(props) {
   const validations = {
     name: [{ type: "Required" }],
     address: [{ type: "Required" }, { type: "IpAddress" }],
-    owner: [{ type: "Required" }],
+    owner: [],
   };
   const runValidationTasks = async (fieldName, value) => {
     let validationResponse = validateField(value, validations[fieldName]);
@@ -170,7 +170,7 @@ export default function DeviceUpdateForm(props) {
       ></TextField>
       <TextField
         label="Owner"
-        isRequired={true}
+        isRequired={false}
         isReadOnly={false}
         defaultValue={owner}
         onChange={(e) => {

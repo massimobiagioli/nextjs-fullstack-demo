@@ -1,6 +1,6 @@
-type Device @model @auth(rules: [{allow: public}]) {
+type Device @model @auth(rules: [{allow: owner, ownerField: "owner", operations: [create, update, delete, read]}]) {
   id: ID!
   name: String!
   address: AWSIPAddress!
-  owner: ID!
-}
+  owner: String
+} 

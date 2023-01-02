@@ -15,7 +15,7 @@ type EagerDevice = {
   readonly id: string
   readonly name: string
   readonly address: string
-  readonly owner: string
+  readonly owner?: string | null
   readonly createdAt?: string | null
   readonly updatedAt?: string | null
 }
@@ -28,7 +28,7 @@ type LazyDevice = {
   readonly id: string
   readonly name: string
   readonly address: string
-  readonly owner: string
+  readonly owner?: string | null
   readonly createdAt?: string | null
   readonly updatedAt?: string | null
 }

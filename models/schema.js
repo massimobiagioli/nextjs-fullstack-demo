@@ -27,8 +27,8 @@ export const schema = {
         owner: {
           name: 'owner',
           isArray: false,
-          type: 'ID',
-          isRequired: true,
+          type: 'String',
+          isRequired: false,
           attributes: [],
         },
         createdAt: {
@@ -60,8 +60,11 @@ export const schema = {
           properties: {
             rules: [
               {
-                allow: 'public',
+                provider: 'userPools',
+                ownerField: 'owner',
+                allow: 'owner',
                 operations: ['create', 'update', 'delete', 'read'],
+                identityClaim: 'cognito:username',
               },
             ],
           },
@@ -72,5 +75,5 @@ export const schema = {
   enums: {},
   nonModels: {},
   codegenVersion: '3.3.2',
-  version: '3d481ec9a67906ad877ffe76f760f2eb',
+  version: '1eadca6da7c50dba7c6f20b793391e1e',
 }

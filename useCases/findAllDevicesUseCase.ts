@@ -17,7 +17,9 @@ const FindAllDevicesUseCase =
     if (!userId) {
       return []
     }
-    const devices = await DataStore.query(Device, (d) => d.owner.eq(userId))
+    const devices = await DataStore.query(Device, (device) =>
+      device.owner.eq(userId)
+    )
     return serializeModel(devices)
   }
 

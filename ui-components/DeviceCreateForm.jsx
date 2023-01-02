@@ -26,22 +26,18 @@ export default function DeviceCreateForm(props) {
   const initialValues = {
     name: undefined,
     address: undefined,
-    owner: undefined,
   };
   const [name, setName] = React.useState(initialValues.name);
   const [address, setAddress] = React.useState(initialValues.address);
-  const [owner, setOwner] = React.useState(initialValues.owner);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setName(initialValues.name);
     setAddress(initialValues.address);
-    setOwner(initialValues.owner);
     setErrors({});
   };
   const validations = {
     name: [{ type: "Required" }],
     address: [{ type: "Required" }, { type: "IpAddress" }],
-    owner: [{ type: "Required" }],
   };
   const runValidationTasks = async (fieldName, value) => {
     let validationResponse = validateField(value, validations[fieldName]);
@@ -63,7 +59,6 @@ export default function DeviceCreateForm(props) {
         let modelFields = {
           name,
           address,
-          owner,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -114,7 +109,6 @@ export default function DeviceCreateForm(props) {
             const modelFields = {
               name: value,
               address,
-              owner,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -139,7 +133,6 @@ export default function DeviceCreateForm(props) {
             const modelFields = {
               name,
               address: value,
-              owner,
             };
             const result = onChange(modelFields);
             value = result?.address ?? value;
@@ -153,31 +146,6 @@ export default function DeviceCreateForm(props) {
         errorMessage={errors.address?.errorMessage}
         hasError={errors.address?.hasError}
         {...getOverrideProps(overrides, "address")}
-      ></TextField>
-      <TextField
-        label="Owner"
-        isRequired={true}
-        isReadOnly={false}
-        onChange={(e) => {
-          let { value } = e.target;
-          if (onChange) {
-            const modelFields = {
-              name,
-              address,
-              owner: value,
-            };
-            const result = onChange(modelFields);
-            value = result?.owner ?? value;
-          }
-          if (errors.owner?.hasError) {
-            runValidationTasks("owner", value);
-          }
-          setOwner(value);
-        }}
-        onBlur={() => runValidationTasks("owner", owner)}
-        errorMessage={errors.owner?.errorMessage}
-        hasError={errors.owner?.hasError}
-        {...getOverrideProps(overrides, "owner")}
       ></TextField>
       <Flex
         justifyContent="space-between"
@@ -193,14 +161,6 @@ export default function DeviceCreateForm(props) {
           gap="15px"
           {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
         >
-          <Button
-            children="Cancel"
-            type="button"
-            onClick={() => {
-              onCancel && onCancel();
-            }}
-            {...getOverrideProps(overrides, "CancelButton")}
-          ></Button>
           <Button
             children="Submit"
             type="submit"

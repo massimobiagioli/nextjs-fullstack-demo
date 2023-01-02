@@ -18,12 +18,10 @@ export declare type ValidationFunction<T> = (
 export declare type DeviceCreateFormInputValues = {
   name?: string
   address?: string
-  owner?: string
 }
 export declare type DeviceCreateFormValidationValues = {
   name?: ValidationFunction<string>
   address?: ValidationFunction<string>
-  owner?: ValidationFunction<string>
 }
 export declare type FormProps<T> = Partial<T> &
   React.DOMAttributes<HTMLDivElement>
@@ -31,7 +29,6 @@ export declare type DeviceCreateFormOverridesProps = {
   DeviceCreateFormGrid?: FormProps<GridProps>
   name?: FormProps<TextFieldProps>
   address?: FormProps<TextFieldProps>
-  owner?: FormProps<TextFieldProps>
 } & EscapeHatchProps
 export declare type DeviceCreateFormProps = React.PropsWithChildren<
   {

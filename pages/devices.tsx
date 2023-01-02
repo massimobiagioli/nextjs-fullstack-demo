@@ -1,5 +1,5 @@
 import { GetServerSideProps } from 'next'
-import { DeviceList } from '../components/DeviceList'
+import { DeviceList, DeviceNew } from '../components/DeviceList'
 import { Layout } from '../components/Layout'
 import { AuthInfo, GetUserId, WithAuth } from '../libs/cognito'
 import GetDataStore from '../libs/datastore'
@@ -21,7 +21,10 @@ export default function Devices(props: DevicesProps) {
 
   return (
     <Layout authInfo={props}>
-      <DeviceList devices={props.devices} />
+      <>
+        <DeviceNew />
+        <DeviceList devices={props.devices} />
+      </>
     </Layout>
   )
 }
