@@ -6,7 +6,11 @@
 
 import * as React from 'react'
 import { EscapeHatchProps } from '@aws-amplify/ui-react/internal'
-import { GridProps, TextFieldProps } from '@aws-amplify/ui-react'
+import {
+  GridProps,
+  SwitchFieldProps,
+  TextFieldProps,
+} from '@aws-amplify/ui-react'
 export declare type ValidationResponse = {
   hasError: boolean
   errorMessage?: string
@@ -18,10 +22,12 @@ export declare type ValidationFunction<T> = (
 export declare type DeviceCreateFormInputValues = {
   name?: string
   address?: string
+  isActive?: boolean
 }
 export declare type DeviceCreateFormValidationValues = {
   name?: ValidationFunction<string>
   address?: ValidationFunction<string>
+  isActive?: ValidationFunction<boolean>
 }
 export declare type FormProps<T> = Partial<T> &
   React.DOMAttributes<HTMLDivElement>
@@ -29,6 +35,7 @@ export declare type DeviceCreateFormOverridesProps = {
   DeviceCreateFormGrid?: FormProps<GridProps>
   name?: FormProps<TextFieldProps>
   address?: FormProps<TextFieldProps>
+  isActive?: FormProps<SwitchFieldProps>
 } & EscapeHatchProps
 export declare type DeviceCreateFormProps = React.PropsWithChildren<
   {

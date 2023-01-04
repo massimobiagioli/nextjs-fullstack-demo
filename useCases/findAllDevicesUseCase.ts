@@ -4,6 +4,7 @@ import { ParsedUrlQuery } from 'querystring'
 import { Device } from '../models'
 import { GetDataStoreFn } from '../libs/datastore'
 import { GetUserIdFn } from '../libs/cognito'
+import { SortDirection } from 'aws-amplify'
 
 const FindAllDevicesUseCase =
   (
@@ -17,8 +18,10 @@ const FindAllDevicesUseCase =
     if (!userId) {
       return []
     }
-    const devices = await DataStore.query(Device, (device) =>
-      device.owner.eq(userId)
+    const devices = await DataStore.query(
+      Device,
+      (device) => device.owner.eq(userId),
+      { sort: (device) => device.address(SortDirection.ASCENDING) }
     )
     return serializeModel(devices)
   }

@@ -5,5 +5,5 @@
  **************************************************************************/
 
 export { default as studioTheme } from './studioTheme'
-export { default as DeviceCreateForm } from './DeviceCreateForm'
 export { default as DeviceUpdateForm } from './DeviceUpdateForm'
+export { default as DeviceCreateForm } from './DeviceCreateForm'

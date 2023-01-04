@@ -9,7 +9,13 @@ import * as React from "react";
 import { fetchByPath, validateField } from "./utils";
 import { Device } from "../models";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  SwitchField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { DataStore } from "aws-amplify";
 export default function DeviceCreateForm(props) {
   const {
@@ -26,18 +32,22 @@ export default function DeviceCreateForm(props) {
   const initialValues = {
     name: undefined,
     address: undefined,
+    isActive: false,
   };
   const [name, setName] = React.useState(initialValues.name);
   const [address, setAddress] = React.useState(initialValues.address);
+  const [isActive, setIsActive] = React.useState(initialValues.isActive);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     setName(initialValues.name);
     setAddress(initialValues.address);
+    setIsActive(initialValues.isActive);
     setErrors({});
   };
   const validations = {
     name: [{ type: "Required" }],
     address: [{ type: "Required" }, { type: "IpAddress" }],
+    isActive: [],
   };
   const runValidationTasks = async (fieldName, value) => {
     let validationResponse = validateField(value, validations[fieldName]);
@@ -59,6 +69,7 @@ export default function DeviceCreateForm(props) {
         let modelFields = {
           name,
           address,
+          isActive,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -109,6 +120,7 @@ export default function DeviceCreateForm(props) {
             const modelFields = {
               name: value,
               address,
+              isActive,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -133,6 +145,7 @@ export default function DeviceCreateForm(props) {
             const modelFields = {
               name,
               address: value,
+              isActive,
             };
             const result = onChange(modelFields);
             value = result?.address ?? value;
@@ -147,6 +160,32 @@ export default function DeviceCreateForm(props) {
         hasError={errors.address?.hasError}
         {...getOverrideProps(overrides, "address")}
       ></TextField>
+      <SwitchField
+        label="Is active"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={isActive}
+        onChange={(e) => {
+          let value = e.target.checked;
+          if (onChange) {
+            const modelFields = {
+              name,
+              address,
+              isActive: value,
+            };
+            const result = onChange(modelFields);
+            value = result?.isActive ?? value;
+          }
+          if (errors.isActive?.hasError) {
+            runValidationTasks("isActive", value);
+          }
+          setIsActive(value);
+        }}
+        onBlur={() => runValidationTasks("isActive", isActive)}
+        errorMessage={errors.isActive?.errorMessage}
+        hasError={errors.isActive?.hasError}
+        {...getOverrideProps(overrides, "isActive")}
+      ></SwitchField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}

@@ -9,7 +9,13 @@ import * as React from "react";
 import { fetchByPath, validateField } from "./utils";
 import { Device } from "../models";
 import { getOverrideProps } from "@aws-amplify/ui-react/internal";
-import { Button, Flex, Grid, TextField } from "@aws-amplify/ui-react";
+import {
+  Button,
+  Flex,
+  Grid,
+  SwitchField,
+  TextField,
+} from "@aws-amplify/ui-react";
 import { DataStore } from "aws-amplify";
 export default function DeviceUpdateForm(props) {
   const {
@@ -27,17 +33,17 @@ export default function DeviceUpdateForm(props) {
   const initialValues = {
     name: undefined,
     address: undefined,
-    owner: undefined,
+    isActive: false,
   };
   const [name, setName] = React.useState(initialValues.name);
   const [address, setAddress] = React.useState(initialValues.address);
-  const [owner, setOwner] = React.useState(initialValues.owner);
+  const [isActive, setIsActive] = React.useState(initialValues.isActive);
   const [errors, setErrors] = React.useState({});
   const resetStateValues = () => {
     const cleanValues = { ...initialValues, ...deviceRecord };
     setName(cleanValues.name);
     setAddress(cleanValues.address);
-    setOwner(cleanValues.owner);
+    setIsActive(cleanValues.isActive);
     setErrors({});
   };
   const [deviceRecord, setDeviceRecord] = React.useState(device);
@@ -52,7 +58,7 @@ export default function DeviceUpdateForm(props) {
   const validations = {
     name: [{ type: "Required" }],
     address: [{ type: "Required" }, { type: "IpAddress" }],
-    owner: [],
+    isActive: [],
   };
   const runValidationTasks = async (fieldName, value) => {
     let validationResponse = validateField(value, validations[fieldName]);
@@ -74,7 +80,7 @@ export default function DeviceUpdateForm(props) {
         let modelFields = {
           name,
           address,
-          owner,
+          isActive,
         };
         const validationResponses = await Promise.all(
           Object.keys(validations).reduce((promises, fieldName) => {
@@ -127,7 +133,7 @@ export default function DeviceUpdateForm(props) {
             const modelFields = {
               name: value,
               address,
-              owner,
+              isActive,
             };
             const result = onChange(modelFields);
             value = result?.name ?? value;
@@ -153,7 +159,7 @@ export default function DeviceUpdateForm(props) {
             const modelFields = {
               name,
               address: value,
-              owner,
+              isActive,
             };
             const result = onChange(modelFields);
             value = result?.address ?? value;
@@ -168,32 +174,32 @@ export default function DeviceUpdateForm(props) {
         hasError={errors.address?.hasError}
         {...getOverrideProps(overrides, "address")}
       ></TextField>
-      <TextField
-        label="Owner"
-        isRequired={false}
-        isReadOnly={false}
-        defaultValue={owner}
+      <SwitchField
+        label="Is active"
+        defaultChecked={false}
+        isDisabled={false}
+        isChecked={isActive}
         onChange={(e) => {
-          let { value } = e.target;
+          let value = e.target.checked;
           if (onChange) {
             const modelFields = {
               name,
               address,
-              owner: value,
+              isActive: value,
             };
             const result = onChange(modelFields);
-            value = result?.owner ?? value;
+            value = result?.isActive ?? value;
           }
-          if (errors.owner?.hasError) {
-            runValidationTasks("owner", value);
+          if (errors.isActive?.hasError) {
+            runValidationTasks("isActive", value);
           }
-          setOwner(value);
+          setIsActive(value);
         }}
-        onBlur={() => runValidationTasks("owner", owner)}
-        errorMessage={errors.owner?.errorMessage}
-        hasError={errors.owner?.hasError}
-        {...getOverrideProps(overrides, "owner")}
-      ></TextField>
+        onBlur={() => runValidationTasks("isActive", isActive)}
+        errorMessage={errors.isActive?.errorMessage}
+        hasError={errors.isActive?.hasError}
+        {...getOverrideProps(overrides, "isActive")}
+      ></SwitchField>
       <Flex
         justifyContent="space-between"
         {...getOverrideProps(overrides, "CTAFlex")}
@@ -208,14 +214,6 @@ export default function DeviceUpdateForm(props) {
           gap="15px"
           {...getOverrideProps(overrides, "RightAlignCTASubFlex")}
         >
-          <Button
-            children="Cancel"
-            type="button"
-            onClick={() => {
-              onCancel && onCancel();
-            }}
-            {...getOverrideProps(overrides, "CancelButton")}
-          ></Button>
           <Button
             children="Submit"
             type="submit"

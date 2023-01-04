@@ -7,7 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "yarn lint-staged",
-    "amplify:pull": "amplify pull"
+    "amplify:pull": "amplify pull",
+    "amplify:push": "amplify push"
   },
   "dependencies": {
     "@aws-amplify/ui-react": "^4.3.1",

@@ -3,4 +3,6 @@ type Device @model @auth(rules: [{allow: owner, ownerField: "owner", operations:
   name: String!
   address: AWSIPAddress!
   owner: String
-} 
+  isActive: Boolean
+}
+ 
