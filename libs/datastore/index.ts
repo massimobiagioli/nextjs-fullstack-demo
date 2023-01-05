@@ -3,12 +3,17 @@ import { GetServerSidePropsContext, PreviewData } from 'next'
 import { ParsedUrlQuery } from 'querystring'
 
 export type GetDataStoreFn = (
-  context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+  useSSR: boolean,
+  context?: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => typeof DataStore
 
 const GetDataStore = (
-  context: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
+  useSSR: boolean,
+  context?: GetServerSidePropsContext<ParsedUrlQuery, PreviewData>
 ) => {
+  if (!useSSR) {
+    return DataStore
+  }
   const SSR = withSSRContext(context)
   const dataStore: typeof DataStore = SSR.DataStore
   return dataStore

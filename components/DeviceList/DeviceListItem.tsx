@@ -16,13 +16,16 @@ function formatDateTimeString(dateAsString?: string | null) {
 
 export default function DeviceListItem({ device }: DeviceListItemProps) {
   return (
-    <div className="column is-one-third-desktop is-full-mobile">
+    <div className="column is-one-quarter-widescreen is-one-third is-full-mobile">
       <div className="card">
         <div className="card-header">
           <div className="card-header-title">
             <Link href={`/updateDevice/${device.id}`}>{device.name}</Link>
           </div>
           <div>
+            <Link href={`/deleteDevice/${device.id}`} className="m-2">
+              <i className="fas fa-trash-alt"></i>
+            </Link>
             {device.isActive ? (
               <span className="tag m-2 is-success">Active</span>
             ) : (

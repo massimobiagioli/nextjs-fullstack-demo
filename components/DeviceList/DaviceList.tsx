@@ -11,7 +11,7 @@ export default function DeviceList({ devices }: DeviceListProps) {
   }
 
   return (
-    <div className="columns m-4">
+    <div className="columns is-multiline m-4">
       {devices.map((device) => (
         <DeviceListItem key={device.id} device={device} />
       ))}

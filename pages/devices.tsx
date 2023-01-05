@@ -30,10 +30,10 @@ export default function Devices(props: DevicesProps) {
 }
 
 export const getServerSideProps: GetServerSideProps = async (context) => {
+  const userId = await GetUserId(context)
   const findAllDevicesUseCase = FindAllDevicesUseCase(
-    context,
-    GetDataStore,
-    GetUserId
+    GetDataStore(true, context),
+    userId
   )
   const devices = await findAllDevicesUseCase()
   const data = {
