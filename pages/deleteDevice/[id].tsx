@@ -1,6 +1,6 @@
 import { GetServerSideProps } from 'next'
 import { useRouter } from 'next/router'
-import DeviceDelete from '../../components/DeviceDelete'
+import DeviceDelete from '../../components/DeviceDelete/DeviceDelete'
 import { Layout } from '../../components/Layout'
 import { AuthInfo, withAuth } from '../../libs/cognito'
 

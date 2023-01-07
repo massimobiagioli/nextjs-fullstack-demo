@@ -16,7 +16,7 @@ function formatDateTimeString(dateAsString?: string | null) {
 
 export default function DeviceListItem({ device }: DeviceListItemProps) {
   return (
-    <div className="column is-one-quarter-widescreen is-one-third is-full-mobile">
+    <div className="column is-full-mobile is-half-tablet is-one-third-desktop is-one-quarter-widescreen is-one-quarter-fullhd">
       <div className="card">
         <div className="card-header">
           <div className="card-header-title">

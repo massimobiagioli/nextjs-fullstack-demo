@@ -1,8 +1,8 @@
 import { GetServerSideProps } from 'next'
 import Router from 'next/router'
-import { Layout } from '../components/Layout'
-import { AuthInfo, withAuth } from '../libs/cognito'
-import DeviceCreateForm from '../ui-components/DeviceCreateForm'
+import { Layout } from '../../components/Layout'
+import { AuthInfo, withAuth } from '../../libs/cognito'
+import DeviceCreateForm from '../../ui-components/DeviceCreateForm'
 
 export default function NewDevice(authInfo: AuthInfo) {
   if (!authInfo.authenticated || !authInfo.userInfo.id) {
