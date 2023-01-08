@@ -1,6 +1,6 @@
 import Router from 'next/router'
 import GetDataStore from '../../libs/datastore'
-import DeleteDeviceUseCase from '../../useCases/DeleteDeviceUseCase'
+import { DeleteDeviceUseCase } from '../../useCases'
 
 const deleteDeviceById = async (deviceId: string) => {
   const deleteDeviceUseCase = DeleteDeviceUseCase(GetDataStore(false))

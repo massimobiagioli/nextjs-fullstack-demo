@@ -4,7 +4,7 @@ import { Layout } from '../../components/Layout'
 import { AuthInfo, GetUserId, WithAuth } from '../../libs/cognito'
 import GetDataStore from '../../libs/datastore'
 import { Device } from '../../models'
-import FindAllDevicesUseCase from '../../useCases/FindAllDevicesUseCase'
+import { FindAllDevicesUseCase } from '../../useCases'
 
 type DevicesProps = AuthInfo & {
   devices: Device[]
