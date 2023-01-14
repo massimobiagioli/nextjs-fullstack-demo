@@ -3,7 +3,10 @@
   "DynamoDBBillingMode": "PAY_PER_REQUEST",
   "DynamoDBEnableServerSideEncryption": false,
   "AuthCognitoUserPoolId": {
-    "Fn::GetAtt": ["authdevicedemo", "Outputs.UserPoolId"]
+    "Fn::GetAtt": [
+      "authdevicedemo",
+      "Outputs.UserPoolId"
+    ]
   },
   "AuthModeLastUpdated": "2023-01-04T10:17:41.033Z"
 }

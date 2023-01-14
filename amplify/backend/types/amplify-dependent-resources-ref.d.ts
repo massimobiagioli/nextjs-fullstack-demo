@@ -1,19 +1,19 @@
 export type AmplifyDependentResourcesAttributes = {
-  api: {
-    devicedemo: {
-      GraphQLAPIIdOutput: 'string'
-      GraphQLAPIEndpointOutput: 'string'
+  "api": {
+    "devicedemo": {
+      "GraphQLAPIEndpointOutput": "string",
+      "GraphQLAPIIdOutput": "string"
     }
-  }
-  auth: {
-    devicedemo: {
-      IdentityPoolId: 'string'
-      IdentityPoolName: 'string'
-      UserPoolId: 'string'
-      UserPoolArn: 'string'
-      UserPoolName: 'string'
-      AppClientIDWeb: 'string'
-      AppClientID: 'string'
+  },
+  "auth": {
+    "devicedemo": {
+      "AppClientID": "string",
+      "AppClientIDWeb": "string",
+      "IdentityPoolId": "string",
+      "IdentityPoolName": "string",
+      "UserPoolArn": "string",
+      "UserPoolId": "string",
+      "UserPoolName": "string"
     }
   }
 }
